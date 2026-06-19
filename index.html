@@ -115,14 +115,16 @@
   .toggle{display:inline-flex;background:var(--soft);border:1px solid var(--line);border-radius:100px;padding:4px;font-family:"Plus Jakarta Sans";font-weight:700;font-size:.82rem}
   .toggle button{border:0;background:none;cursor:pointer;padding:8px 14px;border-radius:100px;color:var(--muted);transition:.2s}
   .toggle button.on{background:#fff;color:var(--blue-d);box-shadow:0 4px 12px -4px rgba(24,52,120,.25)}
-  .chart{display:flex;align-items:flex-end;gap:10px;height:228px;margin-top:18px}
+  .chart{display:flex;align-items:flex-end;gap:11px;height:264px;margin-top:18px}
   .barwrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:9px}
-  .bar{width:100%;max-width:38px;height:188px;display:flex;flex-direction:column;justify-content:flex-end}
-  .seg{width:100%;height:0;transition:height .9s cubic-bezier(.2,.7,.2,1),background .3s,box-shadow .3s,opacity .3s}
+  .bar{width:100%;max-width:40px;height:224px;display:flex;flex-direction:column;justify-content:flex-end}
+  .seg{width:100%;height:0;transition:height 1s cubic-bezier(.2,.7,.2,1),background .3s,box-shadow .3s,opacity .3s}
   .chart.in .seg{height:var(--h)}
   .seg.biz{background:linear-gradient(180deg,#2f6bff,#3f78ff);border-radius:0 0 7px 7px}
   .seg.after{background:linear-gradient(180deg,#7fb0ff,#a8caff);border-radius:7px 7px 0 0;box-shadow:0 0 0 1px rgba(127,176,255,.5) inset}
-  .chart.without .seg.after{background:repeating-linear-gradient(45deg,#e7edf7,#e7edf7 5px,#eef3fb 5px,#eef3fb 10px);box-shadow:none;opacity:.85}
+  .chart.in:not(.without) .seg.after{animation:glowpulse 2.6s ease-in-out infinite}
+  @keyframes glowpulse{0%,100%{box-shadow:0 0 0 1px rgba(127,176,255,.5) inset,0 0 10px rgba(127,176,255,.35)}50%{box-shadow:0 0 0 1px rgba(127,176,255,.75) inset,0 0 22px rgba(127,176,255,.72)}}
+  .chart.without .seg.after{background:repeating-linear-gradient(45deg,#e7edf7,#e7edf7 5px,#eef3fb 5px,#eef3fb 10px);box-shadow:none;opacity:.85;animation:none}
   .lbl{font-size:.76rem;color:var(--muted);font-weight:600}
   .chart-legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:16px;font-size:.84rem;color:var(--muted)}
   .chart-legend span{display:flex;align-items:center;gap:7px}
@@ -194,6 +196,17 @@
   .form-ok h3{color:var(--blue-d);margin-bottom:6px}
   .form-ok p{color:var(--muted)}
   .hp{position:absolute;left:-9999px}
+  .addon{display:flex;gap:14px;align-items:flex-start;background:var(--soft);border:1.5px solid var(--line);border-radius:16px;padding:18px;cursor:pointer;margin-bottom:18px;transition:.2s}
+  .addon:hover{border-color:var(--sky-2)}
+  .addon input{position:absolute;opacity:0;width:0;height:0}
+  .addon-check{flex:0 0 auto;width:24px;height:24px;border-radius:7px;border:2px solid var(--sky-2);background:#fff;display:grid;place-items:center;margin-top:2px;transition:.2s}
+  .addon-check::after{content:"✓";color:#fff;font-weight:800;font-size:.85rem;opacity:0;transform:scale(.5);transition:.2s}
+  .addon input:checked ~ .addon-check{background:var(--grad);border-color:transparent}
+  .addon input:checked ~ .addon-check::after{opacity:1;transform:scale(1)}
+  .addon:has(input:checked){border-color:var(--blue);background:#fff;box-shadow:0 14px 32px -16px rgba(47,107,255,.4)}
+  .addon-title{font-family:"Plus Jakarta Sans";font-weight:700;display:block;margin-bottom:3px}
+  .addon-price{color:var(--blue-d);background:var(--soft-2);padding:2px 9px;border-radius:100px;font-size:.82rem;margin-left:8px;font-family:"Inter"}
+  .addon-desc{color:var(--muted);font-size:.9rem}
 
   /* faq */
   .faq details{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:4px 22px;margin-bottom:12px;box-shadow:var(--shadow)}
@@ -232,6 +245,22 @@
   .modal-box h3{font-size:1.7rem;margin-bottom:12px}
   .modal-box p{color:var(--muted);margin-bottom:24px}
   .modal-box .x{position:absolute;right:18px;top:12px;background:none;border:0;font-size:1.7rem;color:var(--muted);cursor:pointer;line-height:1}
+
+  /* supernova teaser + godly warp */
+  .nova-teaser{background:radial-gradient(900px 420px at 50% 130%,rgba(123,91,255,.3),transparent),radial-gradient(700px 360px at 15% -20%,rgba(55,214,255,.18),transparent),#070b1c;color:#fff;border-radius:30px;padding:56px;text-align:center;position:relative;overflow:hidden}
+  .nova-teaser .spark{position:absolute;inset:0;background:radial-gradient(2px 2px at 20% 30%,#fff,transparent),radial-gradient(2px 2px at 70% 60%,#bcd,transparent),radial-gradient(1px 1px at 40% 80%,#fff,transparent),radial-gradient(1px 1px at 85% 25%,#9bf,transparent),radial-gradient(1px 1px at 55% 15%,#fff,transparent);opacity:.55}
+  .nova-teaser .badge{display:inline-block;font-weight:700;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:#cdd9ff;border:1px solid rgba(255,255,255,.25);padding:6px 14px;border-radius:100px;margin-bottom:16px;position:relative}
+  .nova-teaser h2{color:#fff;font-size:clamp(1.7rem,3.4vw,2.3rem);position:relative}
+  .nova-teaser p{color:#c2d2f5;max-width:60ch;margin:14px auto 28px;position:relative}
+  .btn-warp{background:linear-gradient(120deg,#7b5bff,#2f6bff 55%,#37d6ff);color:#fff;box-shadow:0 18px 44px -12px rgba(123,91,255,.7);position:relative}
+  .btn-warp:hover{box-shadow:0 24px 56px -12px rgba(55,214,255,.7)}
+  #warp{position:fixed;inset:0;z-index:9999;background:#040716;overflow:hidden}
+  #warp canvas{position:absolute;inset:0;width:100%;height:100%}
+  #warp .wtext{position:absolute;inset:0;display:grid;place-items:center;font-family:"Plus Jakarta Sans";font-weight:800;font-size:clamp(2rem,9vw,6rem);letter-spacing:.32em;padding-left:.32em;color:#fff;text-shadow:0 0 44px rgba(130,175,255,.95);opacity:0;transform:scale(.7);animation:wt 1.9s forwards}
+  @keyframes wt{18%{opacity:0;transform:scale(.7)}46%{opacity:1;transform:scale(1)}82%{opacity:1;transform:scale(1.08)}100%{opacity:0;transform:scale(1.25)}}
+  #warp .flash{position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,#fff,rgba(185,215,255,.6) 38%,transparent 72%);opacity:0;transform:scale(.2);pointer-events:none}
+  #warp.blast .flash{animation:fl .72s forwards}
+  @keyframes fl{to{opacity:1;transform:scale(3.2)}}
 
   @media(max-width:900px){
     section{padding:62px 0}
@@ -380,8 +409,9 @@
           <button class="chip" data-k="dental">🦷 Dental Clinic</button>
           <button class="chip" data-k="aesthetics">💎 Aesthetics</button>
           <button class="chip" data-k="realestate">🏠 Real Estate</button>
+          <button class="chip" data-k="tourism">🧳 Tourism Agency</button>
+          <button class="chip" data-k="investment">📈 Investment</button>
           <button class="chip" data-k="law">⚖️ Law Firm</button>
-          <button class="chip" data-k="medtourism">✈️ Medical Travel</button>
         </div>
         <p style="color:#9fb6e6;font-size:.9rem;margin-top:16px">Just examples — your NOVA is built around <b style="color:#fff">your</b> business.</p>
       </div>
@@ -453,6 +483,16 @@
               <input name="email" type="email" placeholder="you@business.com">
             </div>
           </div>
+
+          <label class="addon">
+            <input type="checkbox" name="missed_call_rescue" value="Yes — add Missed-Call Rescue (+$79/mo)">
+            <span class="addon-check"></span>
+            <span class="addon-body">
+              <span class="addon-title">Add Missed-Call Rescue<span class="addon-price">+$79/mo</span></span>
+              <span class="addon-desc">Busy, on a job, or away? Your phone never sleeps. If a call goes unanswered, NOVA texts the caller back within seconds — so no enquiry ever slips away.</span>
+            </span>
+          </label>
+
           <button class="btn btn-primary btn-lg" type="submit" style="width:100%;justify-content:center">Get my NOVA →</button>
         </form>
 
@@ -484,6 +524,19 @@
   </div>
 </section>
 
+<!-- SUPERNOVA TEASER -->
+<section>
+  <div class="wrap">
+    <div class="nova-teaser reveal">
+      <div class="spark"></div>
+      <span class="badge">Also by NOVA</span>
+      <h2>Need a website as bold as your assistant?</h2>
+      <p>NOVA doesn't just answer your customers — she can build the site that wows them. Step into <b>Supernova</b>, our website-design studio, where we craft sites that bend reality.</p>
+      <a class="btn btn-warp btn-lg" href="supernova.html" data-warp>Enter Supernova →</a>
+    </div>
+  </div>
+</section>
+
 <!-- FINAL CTA -->
 <section>
   <div class="wrap">
@@ -508,21 +561,7 @@
   </div>
 </footer>
 
-<!-- sticky CTA -->
-<div class="sticky-cta" id="stickyCta">
-  <b>Every missed message is a customer lost.</b>
-  <a class="btn btn-primary" href="#start" style="padding:11px 22px">Get started</a>
-  <button class="x" id="stickyX" aria-label="close">&times;</button>
-</div>
-<!-- exit modal -->
-<div class="modal" id="exitModal">
-  <div class="modal-box">
-    <button class="x" id="exitX" aria-label="close">&times;</button>
-    <h3>Before you go 👋</h3>
-    <p>Let us build NOVA for <b>your</b> business — tell us a couple of details and we'll take it from there, risk-free.</p>
-    <a class="btn btn-primary btn-lg" href="#start" id="exitGo">Get started →</a>
-  </div>
-</div>
+<!-- (no sticky bar, no exit pop-up — we don't chase. The work speaks.) -->
 
 <script>
 /* ---------- helpers ---------- */
@@ -544,11 +583,11 @@ const heroScript=[
 async function playHero(){
   const el=document.getElementById('heroChat');el.innerHTML='';
   for(const m of heroScript){
-    if(m.s==='me'){const tp=typing(el);await wait(950);tp.remove();} else {await wait(620);}
+    if(m.s==='me'){const tp=typing(el);await wait(1350);tp.remove();} else {await wait(1100);}
     bubble(el,m.s,m.t);
-    await wait(m.s==='me'?1300:760);
+    await wait(m.s==='me'?2700:1600);
   }
-  await wait(3600);playHero();
+  await wait(5200);playHero();
 }
 
 /* ---------- traffic chart ---------- */
@@ -556,7 +595,7 @@ const WEEK=[
   {d:'Mon',biz:4,after:3},{d:'Tue',biz:3,after:4},{d:'Wed',biz:5,after:3},
   {d:'Thu',biz:4,after:5},{d:'Fri',biz:5,after:6},{d:'Sat',biz:0,after:7},{d:'Sun',biz:0,after:5},
 ];
-const SCALE=15;
+const SCALE=18;
 const TOTAL=WEEK.reduce((a,x)=>a+x.biz+x.after,0);   // with NOVA
 const BIZONLY=WEEK.reduce((a,x)=>a+x.biz,0);         // without
 const chartEl=document.getElementById('chart');
@@ -574,7 +613,7 @@ function animateCount(to){
 function setMode(on){
   chartEl.classList.toggle('without',!on);
   document.querySelectorAll('#chartToggle button').forEach(b=>b.classList.toggle('on',b.dataset.on===(on?'1':'0')));
-  document.getElementById('chartSub').textContent = on ? 'Every message answered — even at 2am.' : 'Only the messages that arrive 9–5 get caught.';
+  document.getElementById('chartSub').textContent = on ? 'Every message answered — about +33 leads a week recovered.' : 'Only the messages that arrive 9–5 get caught.';
   animateCount(on?TOTAL:BIZONLY);
 }
 document.querySelectorAll('#chartToggle button').forEach(b=>b.onclick=()=>setMode(b.dataset.on==='1'));
@@ -588,8 +627,9 @@ const DEMO_BIZ={
   dental:{name:"Dental Clinic", greeting:"Hello, and welcome to the clinic 🦷 — I can help with treatments, pricing, insurance, or booking an appointment. How can I help you today?"},
   aesthetics:{name:"Aesthetic Clinic", greeting:"Welcome 💎 — I can help with our treatments (Botox, fillers, laser, skin), pricing, or booking a complimentary consultation. What are you interested in?"},
   realestate:{name:"Real Estate", greeting:"Hello 👋 — are you looking to buy, rent, or sell? I can share listings, arrange a viewing, or answer any questions."},
+  tourism:{name:"Tourism Agency", greeting:"Hello, and welcome! 🧳 — I can help you plan a trip, build a package, or arrange tours, flights and hotels. Where are you dreaming of going?"},
+  investment:{name:"Investment Advisory", greeting:"Welcome 📈 — I can walk you through our services, answer questions, or arrange a consultation with an advisor. What are your goals?"},
   law:{name:"Law Firm", greeting:"Hello, and thank you for contacting the firm ⚖️ — I can help with our practice areas, booking a consultation, or general questions. What is your matter regarding?"},
-  medtourism:{name:"Medical Travel", greeting:"Hello! ✈️ We arrange world-class treatment abroad with all-inclusive packages. I can help with procedures, a free personalised quote, or a video consultation. What are you considering?"},
 };
 let curBiz="dental";
 const demoHist={};
@@ -657,20 +697,33 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 // animate the chart bars when the chart scrolls into view
 new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){chartEl.classList.add('in');o.disconnect();}}),{threshold:.3}).observe(chartEl);
 
-/* ---------- sticky cta ---------- */
-const sticky=document.getElementById('stickyCta');let stickyOff=false;
-window.addEventListener('scroll',()=>{if(!stickyOff)sticky.classList.toggle('show',window.scrollY>760);});
-function killSticky(){sticky.classList.remove('show');stickyOff=true;}
-document.getElementById('stickyX').onclick=killSticky;
-sticky.querySelector('a').addEventListener('click',killSticky);
-
-/* ---------- exit modal ---------- */
-const modal=document.getElementById('exitModal');
-const closeModal=()=>modal.classList.remove('show');
-document.getElementById('exitX').onclick=closeModal;
-document.getElementById('exitGo').onclick=closeModal;
-modal.addEventListener('click',e=>{if(e.target===modal)closeModal();});
-document.addEventListener('mouseout',e=>{if(e.clientY<=0&&!e.relatedTarget&&!sessionStorage.getItem('exitShown')){modal.classList.add('show');sessionStorage.setItem('exitShown','1');}});
+/* ---------- godly transition → Supernova ---------- */
+function godWarp(href){
+  if(document.getElementById('warp'))return;
+  const o=document.createElement('div');o.id='warp';
+  o.innerHTML='<canvas></canvas><div class="wtext">SUPERNOVA</div><div class="flash"></div>';
+  document.body.appendChild(o);
+  const cv=o.querySelector('canvas'),ctx=cv.getContext('2d');
+  let w=cv.width=innerWidth,h=cv.height=innerHeight,cx=w/2,cy=h/2,t=0;
+  const stars=Array.from({length:480},()=>({a:Math.random()*6.2832,r:Math.random()*70,sp:2+Math.random()*7}));
+  (function loop(){
+    t++;ctx.fillStyle='rgba(4,7,22,.28)';ctx.fillRect(0,0,w,h);
+    const acc=1+t*0.07;
+    for(const s of stars){
+      const r0=s.r;s.r+=s.sp*acc;
+      const x=cx+Math.cos(s.a)*s.r,y=cy+Math.sin(s.a)*s.r;
+      const x0=cx+Math.cos(s.a)*r0,y0=cy+Math.sin(s.a)*r0;
+      ctx.strokeStyle='rgba(190,215,255,'+Math.min(1,s.r/320)+')';
+      ctx.lineWidth=Math.min(3.4,s.r/110);
+      ctx.beginPath();ctx.moveTo(x0,y0);ctx.lineTo(x,y);ctx.stroke();
+      if(s.r>Math.hypot(w,h)){s.r=Math.random()*30;}
+    }
+    if(t<82)requestAnimationFrame(loop);
+  })();
+  setTimeout(()=>o.classList.add('blast'),1200);
+  setTimeout(()=>{location.href=href;},1900);
+}
+document.querySelectorAll('[data-warp]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();godWarp(a.getAttribute('href'));}));
 
 /* ---------- nav ---------- */
 document.getElementById('menuBtn').onclick=()=>document.getElementById('navlinks').classList.toggle('open');
