@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DeskReply by NOVA — AI assistants that never miss a customer</title>
-<meta name="description" content="DeskReply builds NOVA, an always-on AI assistant for your WhatsApp & website — it answers, qualifies and books every customer 24/7, in any language. Tailored to your business. From $99/mo hosting.">
+<meta name="description" content="DeskReply builds NOVA, an always-on AI assistant for your WhatsApp & website — it answers, qualifies and books every customer 24/7, in any language. Tailored to your business. $99/mo.">
 <link rel="icon" href="favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -62,6 +62,8 @@
   .nav-links{display:flex;align-items:center;gap:30px}
   .nav-links a{font-weight:600;color:var(--ink-2);font-size:.96rem}
   .nav-links a:hover{color:var(--blue-d)}
+  .nav-nova{font-weight:700;background:linear-gradient(120deg,#7b5bff,#2f6bff,#37d6ff);-webkit-background-clip:text;background-clip:text;color:transparent!important;display:inline-flex;align-items:center;gap:5px;transition:.2s}
+  .nav-nova:hover{filter:drop-shadow(0 0 9px rgba(91,157,255,.75))}
   .menu-btn{display:none;background:none;border:0;font-size:1.6rem;cursor:pointer;color:var(--ink)}
 
   /* hero */
@@ -78,6 +80,9 @@
   /* chat mockup */
   .phone{justify-self:center;width:330px;max-width:88vw;background:#0c1430;border-radius:40px;padding:14px;box-shadow:var(--shadow-lg);border:2px solid #13204a;position:relative}
   .phone::before{content:"";position:absolute;top:18px;left:50%;transform:translateX(-50%);width:120px;height:24px;background:#0c1430;border-radius:0 0 16px 16px;z-index:3}
+  .phone::after{content:"";position:absolute;inset:-34px;z-index:-1;background:radial-gradient(closest-side,rgba(91,157,255,.3),transparent 75%);filter:blur(14px)}
+  .live-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#37e6ff;margin-right:6px;vertical-align:middle;box-shadow:0 0 0 0 rgba(55,230,255,.6);animation:livedot 2.2s infinite}
+  @keyframes livedot{0%{box-shadow:0 0 0 0 rgba(55,230,255,.55)}70%{box-shadow:0 0 0 7px rgba(55,230,255,0)}100%{box-shadow:0 0 0 0 rgba(55,230,255,0)}}
   .screen{background:#0e1838;border-radius:30px;overflow:hidden;height:560px;display:flex;flex-direction:column}
   .ch-top{background:linear-gradient(135deg,#16306a,#1c4ad6);color:#fff;padding:15px 16px;display:flex;align-items:center;gap:12px}
   .ch-ava{width:40px;height:40px;border-radius:50%;background:#fff;display:grid;place-items:center;font-weight:800;color:var(--blue-d)}
@@ -102,10 +107,10 @@
   /* opportunity / chart */
   .opp-grid{display:grid;grid-template-columns:.92fr 1.08fr;gap:56px;align-items:center;margin-top:18px}
   .opp .lead{margin-top:6px}
-  .stat-chips{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
-  .chip-s{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:14px 18px;min-width:120px}
-  .chip-s .n{font-family:"Plus Jakarta Sans";font-weight:800;font-size:1.5rem;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
-  .chip-s p{color:var(--muted);font-size:.85rem;margin-top:2px}
+  .stat-chips{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:40px auto 6px;max-width:780px}
+  .chip-s{background:var(--soft);border:1px solid var(--line);border-radius:18px;padding:28px 20px;text-align:center;box-shadow:var(--shadow)}
+  .chip-s .n{font-family:"Plus Jakarta Sans";font-weight:800;font-size:2.6rem;line-height:1;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .chip-s p{color:var(--muted);font-size:.96rem;margin-top:9px}
 
   .chart-card{background:var(--card);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);padding:26px 26px 22px}
   .chart-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:6px}
@@ -248,7 +253,15 @@
 
   /* supernova teaser + godly warp */
   .nova-teaser{background:radial-gradient(900px 420px at 50% 130%,rgba(123,91,255,.3),transparent),radial-gradient(700px 360px at 15% -20%,rgba(55,214,255,.18),transparent),#070b1c;color:#fff;border-radius:30px;padding:56px;text-align:center;position:relative;overflow:hidden}
-  .nova-teaser .spark{position:absolute;inset:0;background:radial-gradient(2px 2px at 20% 30%,#fff,transparent),radial-gradient(2px 2px at 70% 60%,#bcd,transparent),radial-gradient(1px 1px at 40% 80%,#fff,transparent),radial-gradient(1px 1px at 85% 25%,#9bf,transparent),radial-gradient(1px 1px at 55% 15%,#fff,transparent);opacity:.55}
+  .nova-teaser .spark{position:absolute;inset:0;background:radial-gradient(2px 2px at 20% 30%,#fff,transparent),radial-gradient(2px 2px at 70% 60%,#bcd,transparent),radial-gradient(1px 1px at 40% 80%,#fff,transparent),radial-gradient(1px 1px at 85% 25%,#9bf,transparent),radial-gradient(1px 1px at 55% 15%,#fff,transparent);opacity:.55;animation:twinkle 4s ease-in-out infinite}
+  @keyframes twinkle{0%,100%{opacity:.45}50%{opacity:.8}}
+  .nova-teaser{animation:teaserGlow 5s ease-in-out infinite}
+  @keyframes teaserGlow{0%,100%{box-shadow:0 0 0 1px rgba(120,160,255,.12),0 0 50px -24px rgba(123,91,255,.5)}50%{box-shadow:0 0 0 1px rgba(120,160,255,.32),0 0 80px -18px rgba(55,214,255,.6)}}
+  .nova-teaser .comet{position:absolute;top:-12%;width:150px;height:2px;background:linear-gradient(90deg,transparent,rgba(190,215,255,.9),#fff);border-radius:2px;transform:rotate(24deg);opacity:0;filter:drop-shadow(0 0 6px rgba(160,200,255,.85))}
+  .nova-teaser .comet.c1{left:6%;animation:comet 5.5s linear infinite}
+  .nova-teaser .comet.c2{left:44%;animation:comet 7s linear .9s infinite}
+  .nova-teaser .comet.c3{left:74%;animation:comet 6s linear 2.6s infinite}
+  @keyframes comet{0%{transform:translate(0,0) rotate(24deg);opacity:0}10%{opacity:1}45%{opacity:1}60%{transform:translate(300px,170px) rotate(24deg);opacity:0}100%{opacity:0}}
   .nova-teaser .badge{display:inline-block;font-weight:700;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:#cdd9ff;border:1px solid rgba(255,255,255,.25);padding:6px 14px;border-radius:100px;margin-bottom:16px;position:relative}
   .nova-teaser h2{color:#fff;font-size:clamp(1.7rem,3.4vw,2.3rem);position:relative}
   .nova-teaser p{color:#c2d2f5;max-width:60ch;margin:14px auto 28px;position:relative}
@@ -259,7 +272,7 @@
   #warp .wtext{position:absolute;inset:0;display:grid;place-items:center;font-family:"Plus Jakarta Sans";font-weight:800;font-size:clamp(2rem,9vw,6rem);letter-spacing:.32em;padding-left:.32em;color:#fff;text-shadow:0 0 44px rgba(130,175,255,.95);opacity:0;transform:scale(.7);animation:wt 1.9s forwards}
   @keyframes wt{18%{opacity:0;transform:scale(.7)}46%{opacity:1;transform:scale(1)}82%{opacity:1;transform:scale(1.08)}100%{opacity:0;transform:scale(1.25)}}
   #warp .flash{position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,#fff,rgba(185,215,255,.6) 38%,transparent 72%);opacity:0;transform:scale(.2);pointer-events:none}
-  #warp.blast .flash{animation:fl .72s forwards}
+  #warp.blast .flash{animation:fl .55s forwards}
   @keyframes fl{to{opacity:1;transform:scale(3.2)}}
 
   @media(max-width:900px){
@@ -272,7 +285,7 @@
     .menu-btn{display:block}
     .demo,.start-card{padding:30px}
     .cta{padding:40px 24px}
-    .choices,.two{grid-template-columns:1fr}
+    .choices,.two,.stat-chips{grid-template-columns:1fr}
   }
 </style>
 </head>
@@ -287,6 +300,7 @@
       <a href="#how">How it works</a>
       <a href="#demo">Live demo</a>
       <a href="#faq">FAQ</a>
+      <a class="nav-nova" href="supernova.html" data-warp>✦ Supernova</a>
       <a class="btn btn-primary" href="#start">Get started</a>
     </nav>
     <button class="menu-btn" id="menuBtn" aria-label="menu">☰</button>
@@ -315,7 +329,7 @@
       <div class="screen">
         <div class="ch-top">
           <div class="ch-ava">N</div>
-          <div><div class="ch-name">NOVA</div><div class="ch-status">online · replies instantly</div></div>
+          <div><div class="ch-name">NOVA</div><div class="ch-status"><span class="live-dot"></span>online · replies instantly</div></div>
         </div>
         <div class="ch-body" id="heroChat"></div>
       </div>
@@ -340,14 +354,15 @@
       <p class="lead">Most inquiries arrive when you <em>can't</em> answer — evenings, weekends, mid-job. Without an assistant, those customers book with whoever replies first. NOVA catches every one.</p>
     </div>
 
+    <div class="stat-chips">
+      <div class="chip-s reveal"><div class="n">24/7</div><p>always answering</p></div>
+      <div class="chip-s reveal"><div class="n">&lt;5s</div><p>average reply time</p></div>
+      <div class="chip-s reveal"><div class="n">~40%</div><p>of inquiries land after hours</p></div>
+    </div>
+
     <div class="opp-grid">
       <div>
-        <div class="stat-chips">
-          <div class="chip-s"><div class="n">24/7</div><p>always answering</p></div>
-          <div class="chip-s"><div class="n">&lt;5s</div><p>reply time</p></div>
-          <div class="chip-s"><div class="n">~40%</div><p>of inquiries are after hours</p></div>
-        </div>
-        <p class="lead" style="margin-top:24px;font-size:1.05rem">Flip the toggle and watch what a 24/7 assistant recovers from the <b>same traffic</b> you already get — the leads that quietly slip away today.</p>
+        <p class="lead" style="font-size:1.08rem">Flip the toggle and watch what a 24/7 assistant recovers from the <b>same traffic</b> you already get — the leads that quietly slip away today.</p>
       </div>
 
       <div class="chart-card reveal">
@@ -503,7 +518,7 @@
       </div>
 
       <div class="price-line">
-        <span class="price-pill">From $99/mo hosting</span>
+        <span class="price-pill">$99/mo</span>
         <b>Setup is tailored to your business</b> — we scope it together, no surprises.
       </div>
     </div>
@@ -515,9 +530,9 @@
   <div class="wrap" style="max-width:760px">
     <div class="center"><span class="eyebrow">FAQ</span><h2 class="big">Questions, answered.</h2></div>
     <div class="faq" style="margin-top:40px">
-      <details open><summary>What does it cost?</summary><p>Hosting starts at <b>$99/month</b>. Setup depends on your business — we keep it simple and scope it with you, with no surprises. Fill in the form above and we'll send a clear, tailored quote.</p></details>
+      <details open><summary>What does it cost?</summary><p>It's <b>$99/month</b>. Setup varies with how involved your business is — but don't stress over it: we get it done, and we get it done fast. Fill in the form above and we'll send a clear, tailored quote.</p></details>
       <details><summary>Will it sound robotic?</summary><p>Not at all. NOVA is built on your business and replies naturally, warmly and on-brand — and hands off to you the moment a human touch is needed.</p></details>
-      <details><summary>How long does setup take?</summary><p>Usually about a day once we have your details. We do the building and training — there's nothing technical on your end.</p></details>
+      <details><summary>How long does setup take?</summary><p>It can take up to a week for a more involved build — but our team puts in the hours to move quickly. Just fill in the form, take a rest, and you'll hear from us shortly. There's nothing technical on your end.</p></details>
       <details><summary>Which channels does NOVA work on?</summary><p>Your website and WhatsApp — the places customers already message you. She runs on your own number and brand.</p></details>
       <details><summary>What if she can't answer something?</summary><p>She gracefully lets the customer know a team member will follow up, and notifies you instantly with the details — so you never miss it.</p></details>
     </div>
@@ -529,6 +544,7 @@
   <div class="wrap">
     <div class="nova-teaser reveal">
       <div class="spark"></div>
+      <i class="comet c1"></i><i class="comet c2"></i><i class="comet c3"></i>
       <span class="badge">Also by NOVA</span>
       <h2>Need a website as bold as your assistant?</h2>
       <p>NOVA doesn't just answer your customers — she can build the site that wows them. Step into <b>Supernova</b>, our website-design studio, where we craft sites that bend reality.</p>
@@ -718,10 +734,10 @@ function godWarp(href){
       ctx.beginPath();ctx.moveTo(x0,y0);ctx.lineTo(x,y);ctx.stroke();
       if(s.r>Math.hypot(w,h)){s.r=Math.random()*30;}
     }
-    if(t<82)requestAnimationFrame(loop);
+    if(t<120)requestAnimationFrame(loop);
   })();
-  setTimeout(()=>o.classList.add('blast'),1200);
-  setTimeout(()=>{location.href=href;},1900);
+  setTimeout(()=>o.classList.add('blast'),1050);
+  setTimeout(()=>{location.href=href;},1720);
 }
 document.querySelectorAll('[data-warp]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();godWarp(a.getAttribute('href'));}));
 

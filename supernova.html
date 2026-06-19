@@ -32,9 +32,9 @@
   .neb.c{width:520px;height:520px;background:radial-gradient(circle,#ff5cc8,transparent 65%);top:42%;left:48%;opacity:.28}
   .vignette{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(120% 80% at 50% 30%,transparent 40%,rgba(4,6,15,.85) 100%)}
 
-  /* intro flash (matches the warp white-out) */
-  #enter{position:fixed;inset:0;z-index:9999;background:#fff;animation:enterOut 1.1s .15s forwards;pointer-events:none}
-  @keyframes enterOut{to{opacity:0;visibility:hidden}}
+  /* arrival warp-in (continues the motion straight from DeskReply — no dark pause) */
+  #enter{position:fixed;inset:0;z-index:9999;background:#fff;pointer-events:none;transition:opacity .5s ease}
+  #enter canvas{position:absolute;inset:0;width:100%;height:100%}
 
   /* nav */
   nav.top{position:absolute;top:0;left:0;right:0;z-index:5;height:80px;display:flex;align-items:center}
@@ -111,7 +111,7 @@
   #warp .wtext{position:absolute;inset:0;display:grid;place-items:center;font-family:"Plus Jakarta Sans";font-weight:800;font-size:clamp(1.6rem,7vw,4.5rem);letter-spacing:.3em;padding-left:.3em;color:#fff;text-shadow:0 0 44px rgba(130,175,255,.95);opacity:0;transform:scale(.7);animation:wt 1.9s forwards}
   @keyframes wt{18%{opacity:0;transform:scale(.7)}46%{opacity:1;transform:scale(1)}82%{opacity:1;transform:scale(1.08)}100%{opacity:0;transform:scale(1.25)}}
   #warp .flash{position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,#fff,rgba(185,215,255,.6) 38%,transparent 72%);opacity:0;transform:scale(.2)}
-  #warp.blast .flash{animation:fl .72s forwards}
+  #warp.blast .flash{animation:fl .55s forwards}
   @keyframes fl{to{opacity:1;transform:scale(3.2)}}
 
   @keyframes breathe{0%,100%{transform:translate(-50%,-50%) scale(1);filter:brightness(1)}50%{transform:translate(-50%,-50%) scale(1.12);filter:brightness(1.25)}}
@@ -130,7 +130,7 @@
 </style>
 </head>
 <body>
-<div id="enter"></div>
+<div id="enter"><canvas></canvas></div>
 <canvas id="sky"></canvas>
 <div class="neb a"></div><div class="neb b"></div><div class="neb c"></div>
 <div class="vignette"></div>
@@ -218,13 +218,39 @@
 </footer>
 
 <script>
+/* ---------- arrival warp-in (seamless handoff from DeskReply) ---------- */
+(function arrival(){
+  const e=document.getElementById('enter');if(!e)return;
+  const c=e.querySelector('canvas'),x=c.getContext('2d');
+  let w=c.width=innerWidth,h=c.height=innerHeight,cx=w/2,cy=h/2,t=0;
+  const st=Array.from({length:480},()=>({a:Math.random()*6.2832,r:30+Math.random()*120,sp:30+Math.random()*18}));
+  (function lp(){
+    t++;const d=Math.min(1,t/22);
+    const R=Math.round(255-247*d),G=Math.round(255-247*d),B=Math.round(255-229*d);
+    x.fillStyle='rgb('+R+','+G+','+B+')';x.fillRect(0,0,w,h);
+    for(const s of st){const r0=s.r;s.r+=s.sp;s.sp*=0.92;
+      const X=cx+Math.cos(s.a)*s.r,Y=cy+Math.sin(s.a)*s.r,X0=cx+Math.cos(s.a)*r0,Y0=cy+Math.sin(s.a)*r0;
+      x.strokeStyle='rgba(150,190,255,'+Math.min(.9,s.sp/30)+')';x.lineWidth=Math.min(3,s.sp/12);
+      x.beginPath();x.moveTo(X0,Y0);x.lineTo(X,Y);x.stroke();}
+    if(t<50)requestAnimationFrame(lp);
+    else{e.style.opacity='0';setTimeout(()=>e.remove(),500);}
+  })();
+})();
+
 /* ---------- starfield ---------- */
 const cv=document.getElementById('sky'),ctx=cv.getContext('2d');
-let W,H,stars=[],shoot=null,sf=0;
+let W,H,stars=[],shoot=null,sf=0,parts=[];
+const orbit=document.querySelector('.orbit');
 function resize(){W=cv.width=innerWidth;H=cv.height=innerHeight;stars=Array.from({length:Math.min(260,Math.floor(W*H/7000))},()=>({x:Math.random()*W,y:Math.random()*H,z:Math.random()*1+.2,tw:Math.random()*6.28}));}
 resize();addEventListener('resize',resize);
-let mx=0,my=0,tx=0,ty=0;
-addEventListener('mousemove',e=>{tx=(e.clientX/innerWidth-.5);ty=(e.clientY/innerHeight-.5);});
+let mx=0,my=0,tx=0,ty=0,pmx=0,pmy=0;
+addEventListener('mousemove',e=>{
+  tx=(e.clientX/innerWidth-.5);ty=(e.clientY/innerHeight-.5);
+  const dx=e.clientX-pmx,dy=e.clientY-pmy;pmx=e.clientX;pmy=e.clientY;
+  if(Math.hypot(dx,dy)>3)parts.push({x:e.clientX,y:e.clientY,vx:(Math.random()-.5)*.5,vy:(Math.random()-.5)*.5,life:1,sz:1.5+Math.random()*1.6,hue:200+Math.random()*70});
+  if(orbit)orbit.style.transform='perspective(900px) rotateY('+(tx*12)+'deg) rotateX('+(-ty*12)+'deg)';
+});
+addEventListener('click',e=>{for(let i=0;i<26;i++){const a=Math.random()*6.2832,sp=1.6+Math.random()*4.6;parts.push({x:e.clientX,y:e.clientY,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,life:1,sz:1.6+Math.random()*2.4,hue:200+Math.random()*90});}});
 function sky(){
   sf+=.02; mx+=(tx-mx)*.05; my+=(ty-my)*.05;
   ctx.clearRect(0,0,W,H);
@@ -244,6 +270,11 @@ function sky(){
     ctx.strokeStyle=g;ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(shoot.x,shoot.y);ctx.lineTo(sx,sy);ctx.stroke();
     if(shoot.l>Math.hypot(W,H)*.7)shoot=null;
   }
+  for(let i=parts.length-1;i>=0;i--){const p=parts[i];p.x+=p.vx;p.y+=p.vy;p.vx*=.96;p.vy*=.96;p.life-=.02;
+    if(p.life<=0){parts.splice(i,1);continue;}
+    ctx.globalAlpha=Math.max(0,p.life);ctx.fillStyle='hsl('+p.hue+',100%,76%)';ctx.shadowBlur=10;ctx.shadowColor='hsl('+p.hue+',100%,70%)';
+    ctx.beginPath();ctx.arc(p.x,p.y,p.sz,0,6.2832);ctx.fill();}
+  ctx.shadowBlur=0;ctx.globalAlpha=1;
   requestAnimationFrame(sky);
 }
 sky();
@@ -278,9 +309,9 @@ function godWarp(href){
     for(const s of st){const r0=s.r;s.r+=s.sp*acc;const X=cx+Math.cos(s.a)*s.r,Y=cy+Math.sin(s.a)*s.r,X0=cx+Math.cos(s.a)*r0,Y0=cy+Math.sin(s.a)*r0;
       x.strokeStyle='rgba(190,215,255,'+Math.min(1,s.r/320)+')';x.lineWidth=Math.min(3.4,s.r/110);x.beginPath();x.moveTo(X0,Y0);x.lineTo(X,Y);x.stroke();
       if(s.r>Math.hypot(w,h))s.r=Math.random()*30;}
-    if(t<82)requestAnimationFrame(lp);})();
-  setTimeout(()=>o.classList.add('blast'),1200);
-  setTimeout(()=>{location.href=href;},1900);
+    if(t<120)requestAnimationFrame(lp);})();
+  setTimeout(()=>o.classList.add('blast'),1050);
+  setTimeout(()=>{location.href=href;},1720);
 }
 document.querySelectorAll('[data-warp]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();godWarp(a.getAttribute('href'));}));
 </script>
