@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DeskReply by NOVA — AI WhatsApp Assistants for Any Business | Never miss a customer again</title>
+<meta name="description" content="Custom AI WhatsApp chatbots for any business — answer support, take orders, book appointments, qualify leads, reply 24/7 in any language. On the number you already use.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* ============ BRAND (rename here) ============ */
+  :root{
+    --brand:"DeskReply";
+    --green:#25d366;        /* WhatsApp green */
+    --green-d:#1da851;
+    --ink:#0c1424;
+    --ink-2:#1a2438;
+    --muted:#5b6b85;
+    --bg:#ffffff;
+    --soft:#f4f7fb;
+    --line:#e6ecf5;
+    --card:#ffffff;
+    --grad: linear-gradient(135deg,#25d366 0%,#0ea5e9 100%);
+    --shadow:0 10px 40px -12px rgba(16,38,73,.18);
+    --shadow-lg:0 30px 70px -20px rgba(16,38,73,.30);
+    --radius:18px;
+    font-synthesis:none;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"Inter",system-ui,sans-serif;color:var(--ink);background:var(--bg);
+    line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  h1,h2,h3,.display{font-family:"Plus Jakarta Sans",sans-serif;font-weight:800;line-height:1.1;letter-spacing:-.02em}
+  a{color:inherit;text-decoration:none}
+  .wrap{width:min(1140px,92vw);margin-inline:auto}
+  section{padding:96px 0}
+  .eyebrow{display:inline-block;font-weight:700;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:var(--green-d);background:rgba(37,211,102,.1);padding:6px 14px;border-radius:100px;margin-bottom:18px}
+  .lead{color:var(--muted);font-size:1.12rem;max-width:60ch}
+  .center{text-align:center}
+  .center .lead{margin-inline:auto}
+
+  /* buttons */
+  .btn{display:inline-flex;align-items:center;gap:9px;font-family:"Plus Jakarta Sans";font-weight:700;font-size:1rem;padding:15px 26px;border-radius:100px;cursor:pointer;border:0;transition:.2s transform,.2s box-shadow;white-space:nowrap}
+  .btn:hover{transform:translateY(-2px)}
+  .btn-primary{background:var(--grad);color:#fff;box-shadow:0 12px 28px -8px rgba(37,211,102,.55)}
+  .btn-ghost{background:#fff;color:var(--ink);border:1.5px solid var(--line);box-shadow:var(--shadow)}
+  .btn-wa{background:var(--green);color:#fff;box-shadow:0 12px 28px -8px rgba(37,211,102,.55)}
+  .btn-lg{padding:18px 34px;font-size:1.05rem}
+
+  /* nav */
+  header.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+  .nav-in{display:flex;align-items:center;justify-content:space-between;height:70px}
+  .logo{display:flex;align-items:center;gap:10px;font-family:"Plus Jakarta Sans";font-weight:800;font-size:1.3rem}
+  .logo .dot{width:34px;height:34px;border-radius:10px;background:var(--grad);display:grid;place-items:center;color:#fff;font-size:1.1rem}
+  .logo .lk{display:flex;flex-direction:column;line-height:1}
+  .logo .lk small{font-weight:600;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:3px}
+  .nav-links{display:flex;align-items:center;gap:30px}
+  .nav-links a{font-weight:600;color:var(--ink-2);font-size:.96rem}
+  .nav-links a:hover{color:var(--green-d)}
+  .menu-btn{display:none;background:none;border:0;font-size:1.6rem;cursor:pointer}
+
+  /* hero */
+  .hero{background:radial-gradient(1200px 600px at 80% -10%,rgba(14,165,233,.10),transparent),radial-gradient(900px 500px at 0% 10%,rgba(37,211,102,.10),transparent);padding-top:70px}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:54px;align-items:center}
+  .hero h1{font-size:clamp(2.3rem,5vw,3.7rem)}
+  .hero h1 .hl{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero .lead{margin:22px 0 30px;font-size:1.18rem}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+  .hero-trust{display:flex;gap:22px;flex-wrap:wrap;margin-top:28px;color:var(--muted);font-size:.92rem;font-weight:500}
+  .hero-trust span{display:flex;align-items:center;gap:7px}
+  .tick{color:var(--green-d);font-weight:800}
+
+  /* phone mockup */
+  .phone{justify-self:center;width:320px;max-width:88vw;background:#0b141a;border-radius:38px;padding:14px;box-shadow:var(--shadow-lg);border:2px solid #11202b;position:relative}
+  .phone::before{content:"";position:absolute;top:18px;left:50%;transform:translateX(-50%);width:120px;height:24px;background:#0b141a;border-radius:0 0 16px 16px;z-index:3}
+  .screen{background:#0b141a;border-radius:28px;overflow:hidden;height:560px;display:flex;flex-direction:column}
+  .wa-top{background:#1f2c34;color:#fff;padding:14px 16px;display:flex;align-items:center;gap:12px}
+  .wa-ava{width:40px;height:40px;border-radius:50%;background:var(--grad);display:grid;place-items:center;font-weight:800}
+  .wa-name{font-weight:700;font-size:.98rem;font-family:"Plus Jakarta Sans"}
+  .wa-status{font-size:.74rem;color:#8fa6b2}
+  .wa-body{flex:1;padding:16px 14px;display:flex;flex-direction:column;gap:9px;overflow:hidden;background:#0b141a url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Ccircle cx='2' cy='2' r='1' fill='%23ffffff08'/%3E%3C/svg%3E")}
+  .bub{max-width:82%;padding:9px 13px;border-radius:14px;font-size:.9rem;line-height:1.45;animation:pop .35s ease}
+  .bub.them{align-self:flex-start;background:#202c33;color:#e9edf0;border-top-left-radius:4px}
+  .bub.me{align-self:flex-end;background:#005c4b;color:#e9f7ef;border-top-right-radius:4px}
+  .bub .t{display:block;font-size:.62rem;opacity:.55;text-align:right;margin-top:3px}
+  .typing{align-self:flex-start;background:#202c33;border-radius:14px;border-top-left-radius:4px;padding:12px 15px;display:flex;gap:4px}
+  .typing i{width:7px;height:7px;border-radius:50%;background:#8fa6b2;animation:blink 1.2s infinite}
+  .typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+  @keyframes blink{0%,60%,100%{opacity:.3}30%{opacity:1}}
+  @keyframes pop{from{opacity:0;transform:translateY(8px) scale(.97)}to{opacity:1;transform:none}}
+
+  /* logos / trust bar */
+  .trustbar{background:var(--soft);padding:34px 0;border-block:1px solid var(--line)}
+  .trustbar .wrap{display:flex;align-items:center;justify-content:center;gap:14px 40px;flex-wrap:wrap;color:var(--muted);font-weight:600}
+  .trustbar b{font-family:"Plus Jakarta Sans";color:var(--ink)}
+
+  /* stats / problem */
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:30px;box-shadow:var(--shadow)}
+  .stat .n{font-family:"Plus Jakarta Sans";font-weight:800;font-size:2.5rem;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .stat p{color:var(--muted);margin-top:6px}
+
+  /* features */
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .feat{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:30px;box-shadow:var(--shadow);transition:.25s transform,.25s box-shadow}
+  .feat:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg)}
+  .feat .ic{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;font-size:1.5rem;background:rgba(37,211,102,.12);margin-bottom:16px}
+  .feat h3{font-size:1.18rem;margin-bottom:8px}
+  .feat p{color:var(--muted);font-size:.97rem}
+
+  /* how */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;counter-reset:s}
+  .step{position:relative;padding-top:14px}
+  .step .num{counter-increment:s;font-family:"Plus Jakarta Sans";font-weight:800;font-size:1rem;width:44px;height:44px;border-radius:12px;background:var(--grad);color:#fff;display:grid;place-items:center;margin-bottom:16px}
+  .step .num::before{content:counter(s)}
+  .step h3{font-size:1.2rem;margin-bottom:6px}
+  .step p{color:var(--muted)}
+
+  /* demo */
+  .demo{background:var(--ink);color:#fff;border-radius:30px;padding:50px;display:grid;grid-template-columns:1fr 1fr;gap:46px;align-items:center}
+  .demo h2{color:#fff;font-size:2rem}
+  .demo .lead{color:#aeb9cc}
+  .chat{background:#0b141a;border-radius:20px;border:1px solid #1d2a36;height:420px;display:flex;flex-direction:column;overflow:hidden;box-shadow:var(--shadow-lg)}
+  .chat .wa-body{flex:1;overflow-y:auto}
+  .chat-input{display:flex;gap:8px;padding:12px;background:#1f2c34}
+  .chat-input input{flex:1;border:0;border-radius:100px;padding:11px 16px;background:#2a3942;color:#fff;font-size:.92rem;outline:none}
+  .chat-input input::placeholder{color:#8fa6b2}
+  .chat-input button{border:0;width:44px;height:44px;border-radius:50%;background:var(--green);color:#fff;font-size:1.1rem;cursor:pointer;flex:0 0 auto}
+  .chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:22px}
+  .chip{font-family:"Plus Jakarta Sans";font-weight:600;font-size:.88rem;padding:9px 15px;border-radius:100px;cursor:pointer;border:1.5px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);color:#dfe7f2;transition:.2s}
+  .chip:hover{border-color:var(--green);color:#fff}
+  .chip.on{background:var(--green);border-color:var(--green);color:#04210f}
+
+  /* pricing */
+  .prices{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:stretch}
+  .price{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:34px 30px;box-shadow:var(--shadow);display:flex;flex-direction:column}
+  .price.pop{border:2px solid var(--green);box-shadow:var(--shadow-lg);position:relative;transform:scale(1.03)}
+  .price .tag{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--grad);color:#fff;font-weight:700;font-size:.74rem;letter-spacing:.06em;padding:6px 16px;border-radius:100px;text-transform:uppercase}
+  .price h3{font-size:1.25rem}
+  .price .amt{font-family:"Plus Jakarta Sans";font-weight:800;font-size:2.6rem;margin:10px 0 2px}
+  .price .amt small{font-size:1rem;color:var(--muted);font-weight:600}
+  .price ul{list-style:none;margin:20px 0 26px;display:flex;flex-direction:column;gap:11px}
+  .price li{display:flex;gap:10px;color:var(--ink-2);font-size:.96rem}
+  .price li::before{content:"✓";color:var(--green-d);font-weight:800}
+  .price .btn{width:100%;justify-content:center;margin-top:auto}
+  .pay-note{text-align:center;margin-top:26px;color:var(--muted);font-size:.94rem}
+  .pay-note b{color:var(--ink)}
+
+  /* testimonials */
+  .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .quote{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow)}
+  .quote .stars{color:#ffb400;margin-bottom:10px}
+  .quote p{font-size:1rem}
+  .quote .who{display:flex;align-items:center;gap:12px;margin-top:18px}
+  .quote .who .a{width:42px;height:42px;border-radius:50%;background:var(--grad);display:grid;place-items:center;color:#fff;font-weight:800}
+  .quote .who b{font-family:"Plus Jakarta Sans"}
+  .quote .who span{display:block;color:var(--muted);font-size:.85rem}
+
+  /* faq */
+  .faq details{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:4px 22px;margin-bottom:12px;box-shadow:var(--shadow)}
+  .faq summary{font-family:"Plus Jakarta Sans";font-weight:700;font-size:1.05rem;padding:18px 0;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+";font-size:1.5rem;color:var(--green-d);transition:.2s}
+  .faq details[open] summary::after{transform:rotate(45deg)}
+  .faq details p{color:var(--muted);padding-bottom:20px}
+
+  /* cta */
+  .cta{background:var(--ink);border-radius:30px;padding:62px;text-align:center;color:#fff;position:relative;overflow:hidden}
+  .cta::before{content:"";position:absolute;inset:0;background:radial-gradient(600px 300px at 50% 0%,rgba(37,211,102,.22),transparent)}
+  .cta h2{color:#fff;font-size:2.3rem;position:relative}
+  .cta .lead{color:#b9c4d6;margin:16px auto 30px;position:relative}
+  .form{position:relative;display:flex;gap:10px;flex-wrap:wrap;justify-content:center;max-width:680px;margin-inline:auto}
+  .form input{flex:1;min-width:200px;border:0;border-radius:100px;padding:16px 22px;font-size:1rem;outline:none}
+  .form .ok{display:none;width:100%;background:rgba(37,211,102,.18);border:1px solid var(--green);color:#d6ffe8;border-radius:14px;padding:18px;font-weight:600}
+
+  /* footer */
+  footer{background:var(--soft);padding:50px 0 30px;border-top:1px solid var(--line)}
+  .foot{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;align-items:center}
+  .foot .links{display:flex;gap:24px;flex-wrap:wrap;color:var(--muted);font-weight:500}
+  .foot small{color:var(--muted);display:block;margin-top:24px;text-align:center;width:100%}
+
+  .reveal{opacity:0;transform:translateY(26px);transition:.7s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* guarantee badge */
+  .guarantee{display:inline-flex;align-items:center;gap:8px;color:var(--green-d);font-weight:700;font-size:.92rem}
+  /* sticky cta bar */
+  .sticky-cta{position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--ink);color:#fff;display:none;align-items:center;justify-content:center;gap:18px;padding:14px 48px 14px 20px;box-shadow:0 -12px 34px -12px rgba(0,0,0,.4);flex-wrap:wrap}
+  .sticky-cta.show{display:flex}
+  .sticky-cta b{font-family:"Plus Jakarta Sans";font-size:1rem}
+  .sticky-cta .x{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:0;color:#8fa6b2;font-size:1.5rem;cursor:pointer;line-height:1}
+  /* floating WhatsApp button → NOVA */
+  .wa-fab{position:fixed;right:20px;bottom:22px;z-index:70;width:58px;height:58px;border-radius:50%;background:var(--green);display:grid;place-items:center;box-shadow:0 12px 30px -8px rgba(37,211,102,.6);transition:.25s transform,.25s bottom}
+  .wa-fab:hover{transform:scale(1.08)}
+  .wa-fab svg{width:32px;height:32px}
+  .wa-fab.up{bottom:90px}
+  /* exit-intent modal */
+  .modal{position:fixed;inset:0;z-index:80;background:rgba(8,14,28,.72);backdrop-filter:blur(5px);display:none;align-items:center;justify-content:center;padding:20px}
+  .modal.show{display:flex;animation:pop .3s ease}
+  .modal-box{background:#fff;border-radius:24px;max-width:470px;width:100%;padding:42px 36px;text-align:center;box-shadow:var(--shadow-lg);position:relative}
+  .modal-box h3{font-size:1.7rem;margin-bottom:12px}
+  .modal-box p{color:var(--muted);margin-bottom:24px}
+  .modal-box .guarantee{margin-top:16px}
+  .modal-box .x{position:absolute;right:18px;top:12px;background:none;border:0;font-size:1.7rem;color:var(--muted);cursor:pointer;line-height:1}
+
+  /* responsive */
+  @media(max-width:900px){
+    section{padding:64px 0}
+    .hero-grid,.demo{grid-template-columns:1fr;gap:40px}
+    .stats,.grid3,.steps,.prices,.quotes{grid-template-columns:1fr}
+    .price.pop{transform:none}
+    .nav-links{position:fixed;inset:70px 0 auto 0;background:#fff;flex-direction:column;padding:24px;gap:18px;border-bottom:1px solid var(--line);transform:translateY(-130%);transition:.3s;box-shadow:var(--shadow)}
+    .nav-links.open{transform:none}
+    .menu-btn{display:block}
+    .demo{padding:32px}
+    .cta{padding:40px 24px}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="logo" href="#"><span class="dot">D</span><span class="lk"><b>DeskReply</b><small>by NOVA</small></span></a>
+    <nav class="nav-links" id="navlinks">
+      <a href="#features">Features</a>
+      <a href="#how">How it works</a>
+      <a href="#demo">Live demo</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+      <a class="btn btn-primary" href="#start">Book a free demo</a>
+    </nav>
+    <button class="menu-btn" id="menuBtn" aria-label="menu">☰</button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">AI WhatsApp chatbots · for any business</span>
+      <h1>Never miss a customer on <span class="hl">WhatsApp</span> again.</h1>
+      <p class="lead">Meet <b>NOVA</b> — your custom AI assistant on WhatsApp, handling support, sales, orders, bookings, and lead capture. Whatever your business needs, 24/7, in any language, on the number you already use.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary btn-lg" href="#start">Book a free demo</a>
+        <a class="btn btn-ghost btn-lg" href="#demo">▶ See it in action</a>
+      </div>
+      <div class="guarantee" style="margin-top:18px">✓ 30-day money-back guarantee &nbsp;·&nbsp; live in a day</div>
+      <div class="hero-trust">
+        <span><i class="tick">✓</i> Replies in seconds</span>
+        <span><i class="tick">✓</i> Works 24/7</span>
+        <span><i class="tick">✓</i> 30+ languages</span>
+        <span><i class="tick">✓</i> Your existing number</span>
+      </div>
+    </div>
+    <!-- animated phone -->
+    <div class="phone">
+      <div class="screen">
+        <div class="wa-top">
+          <div class="wa-ava">N</div>
+          <div><div class="wa-name">Dental Clinic</div><div class="wa-status">NOVA · online</div></div>
+        </div>
+        <div class="wa-body" id="heroChat"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trustbar">
+  <div class="wrap">
+    <span>Built for <b>clinics</b></span><span><b>dental</b></span><span><b>real estate</b></span>
+    <span><b>agencies</b></span><span><b>medical tourism</b></span><span><b>e-commerce</b></span><span><b>&amp; any business</b></span>
+  </div>
+</div>
+
+<!-- PROBLEM / STATS -->
+<section>
+  <div class="wrap center">
+    <span class="eyebrow">The problem</span>
+    <h2 style="font-size:2.1rem">Every unanswered message is money walking out the door.</h2>
+    <p class="lead">Customers message on WhatsApp expecting an instant reply. Miss it — at night, on weekends, while you're busy — and they book with whoever answers first.</p>
+    <div class="stats" style="margin-top:42px">
+      <div class="stat reveal"><div class="n">&lt;5 min</div><p>is how fast most customers expect a reply before they move on.</p></div>
+      <div class="stat reveal"><div class="n">42%</div><p>of inquiries arrive after business hours — when no one's answering.</p></div>
+      <div class="stat reveal"><div class="n">24/7</div><p>NOVA replies instantly, every hour, so no lead ever goes cold.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features" style="background:var(--soft)">
+  <div class="wrap">
+    <div class="center"><span class="eyebrow">Features</span><h2 style="font-size:2.1rem">Everything your business needs it to do — automatically.</h2></div>
+    <div class="grid3" style="margin-top:46px">
+      <div class="feat reveal"><div class="ic">⚡</div><h3>Instant 24/7 replies</h3><p>Answers in seconds, day or night, so every customer feels taken care of immediately.</p></div>
+      <div class="feat reveal"><div class="ic">📅</div><h3>Books appointments</h3><p>Turns conversations into confirmed bookings and reminders — no back-and-forth.</p></div>
+      <div class="feat reveal"><div class="ic">🎯</div><h3>Captures every lead</h3><p>Saves name, number, and what they wanted — automatically delivered to you.</p></div>
+      <div class="feat reveal"><div class="ic">🌍</div><h3>Speaks 30+ languages</h3><p>Detects and replies in the customer's language. Perfect for tourists and locals alike.</p></div>
+      <div class="feat reveal"><div class="ic">🧠</div><h3>Knows your business</h3><p>Trained on your services, hours, prices and FAQs — it answers like your best staff.</p></div>
+      <div class="feat reveal"><div class="ic">💬</div><h3>Your number, your brand</h3><p>Runs on your existing WhatsApp. Customers feel like they're talking to you.</p></div>
+      <div class="feat reveal"><div class="ic">📞</div><h3>Missed-call rescue</h3><p>Can't pick up the phone? The bot instantly messages the caller and books them — so an unanswered call is never a lost customer.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- USE CASES -->
+<section id="usecases">
+  <div class="wrap">
+    <div class="center"><span class="eyebrow">Any job, any industry</span><h2 style="font-size:2.1rem">One bot, trained for whatever you need.</h2><p class="lead">DeskReply isn't a fixed template — it's a custom AI configured for your exact business and goals. A few of the jobs it does:</p></div>
+    <div class="grid3" style="margin-top:46px">
+      <div class="feat reveal"><div class="ic">🛎️</div><h3>Customer support</h3><p>FAQs, order status, hours, policies — answered instantly, around the clock.</p></div>
+      <div class="feat reveal"><div class="ic">🛒</div><h3>Sales & e-commerce</h3><p>Recommend products, take orders, share catalogs, recover abandoned carts.</p></div>
+      <div class="feat reveal"><div class="ic">📅</div><h3>Bookings & reservations</h3><p>Appointments, tables, viewings — booked and reminded automatically.</p></div>
+      <div class="feat reveal"><div class="ic">🎯</div><h3>Lead qualification</h3><p>Greet, qualify and capture leads, then hand the hot ones straight to your team.</p></div>
+      <div class="feat reveal"><div class="ic">🌍</div><h3>Multilingual concierge</h3><p>Tourism, travel, real estate — serve every customer in their own language.</p></div>
+      <div class="feat reveal"><div class="ic">🧩</div><h3>Anything custom</h3><p>A different need? If it can happen in a chat, we can build it for you.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW -->
+<section id="how">
+  <div class="wrap">
+    <div class="center"><span class="eyebrow">How it works</span><h2 style="font-size:2.1rem">Live in a day. Not a developer in sight.</h2></div>
+    <div class="steps" style="margin-top:46px">
+      <div class="step reveal"><div class="num"></div><h3>Connect your WhatsApp</h3><p>Link the number you already use in a couple of minutes. No new SIM, no apps.</p></div>
+      <div class="step reveal"><div class="num"></div><h3>Tell NOVA about you</h3><p>Your services, prices, hours, FAQs. NOVA learns your business in minutes.</p></div>
+      <div class="step reveal"><div class="num"></div><h3>NOVA answers 24/7</h3><p>She handles customers, books jobs, and sends you every lead. You just show up.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- DEMO -->
+<section id="demo">
+  <div class="wrap">
+    <div class="demo">
+      <div>
+        <span class="eyebrow" style="background:rgba(37,211,102,.18)">Try it live</span>
+        <h2>Pick a business. Talk to its bot.</h2>
+        <p class="lead">This is the real AI. Choose an example below, then type like a customer would — ask about hours, prices, a booking, an order — and watch it reply instantly.</p>
+        <div class="chips">
+          <button class="chip" data-k="dental">🦷 Dental Clinic</button>
+          <button class="chip" data-k="aesthetics">💎 Aesthetics</button>
+          <button class="chip" data-k="realestate">🏠 Real Estate</button>
+          <button class="chip" data-k="law">⚖️ Law Firm</button>
+          <button class="chip" data-k="medtourism">✈️ Medical Travel</button>
+        </div>
+        <p style="color:#8fa6b2;font-size:.9rem;margin-top:16px">Just examples — your bot is built around <b style="color:#fff">your</b> business.</p>
+      </div>
+      <div class="chat">
+        <div class="wa-top"><div class="wa-ava" id="demoAva">D</div><div><div class="wa-name" id="demoBiz">Dental Clinic</div><div class="wa-status">NOVA · typically replies instantly</div></div></div>
+        <div class="wa-body" id="demoChat"></div>
+        <div class="chat-input">
+          <input id="demoInput" placeholder="Type a message…" autocomplete="off">
+          <button id="demoSend" aria-label="send">➤</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing" style="background:var(--soft)">
+  <div class="wrap">
+    <div class="center"><span class="eyebrow">Pricing</span><h2 style="font-size:2.1rem">Less than a part-time receptionist — and she never clocks out.</h2><p class="lead">A human receptionist runs $2,000+/month. NOVA works 24/7, in every language, for a fraction of that.</p></div>
+    <div class="prices" style="margin-top:50px;grid-template-columns:repeat(2,1fr);max-width:820px;margin-inline:auto">
+      <div class="price pop reveal">
+        <span class="tag">Done-for-you</span>
+        <h3>Complete</h3>
+        <div class="amt">$499<small> setup</small></div>
+        <div style="font-family:'Plus Jakarta Sans';font-weight:800;font-size:1.5rem;margin-top:4px">then $279<small style="font-size:.95rem;color:var(--muted);font-weight:600">/month</small></div>
+        <p style="color:var(--muted);margin-top:10px">Your full AI receptionist — built, launched & managed for you.</p>
+        <ul>
+          <li>White-glove setup on your WhatsApp</li>
+          <li>24/7 AI replies, trained on your business</li>
+          <li>Appointment booking + reminders</li>
+          <li>Automatic lead capture + dashboard</li>
+          <li>30+ languages</li>
+          <li>Unlimited conversations</li>
+          <li>Priority support + ongoing tuning</li>
+        </ul>
+        <a class="btn btn-primary" href="#start">Book a free demo</a>
+      </div>
+      <div class="price reveal">
+        <h3>Business</h3>
+        <div class="amt">Custom</div>
+        <p style="color:var(--muted);margin-top:10px">Multiple locations, branches & integrations.</p>
+        <ul>
+          <li>Everything in Complete</li>
+          <li>Multiple numbers / branches</li>
+          <li>CRM &amp; calendar integrations</li>
+          <li>Dedicated account manager</li>
+          <li>Custom workflows & priority builds</li>
+        </ul>
+        <a class="btn btn-ghost" href="#start">Talk to us</a>
+      </div>
+    </div>
+    <p class="pay-note">💳 Card or <b>crypto (USDC)</b> &nbsp;·&nbsp; cancel anytime &nbsp;·&nbsp; <b>30-day money-back guarantee</b> &nbsp;·&nbsp; 2 months free on annual billing</p>
+    <div style="max-width:700px;margin:26px auto 0;background:var(--card);border:2px dashed var(--green);border-radius:var(--radius);padding:22px 26px;text-align:center;box-shadow:var(--shadow)">
+      <b style="font-family:'Plus Jakarta Sans';font-size:1.12rem">📞 Add-on — Missed-Call Rescue · +$129/mo</b>
+      <p style="color:var(--muted);margin-top:6px">Can't pick up? The bot instantly WhatsApps the caller and books them — so an unanswered call never becomes a lost customer.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS  (replace with real ones once you have them) -->
+<section>
+  <div class="wrap">
+    <div class="center"><span class="eyebrow">Loved by busy owners</span><h2 style="font-size:2.1rem">It pays for itself the first week.</h2></div>
+    <div class="quotes" style="margin-top:46px">
+      <div class="quote reveal"><div class="stars">★★★★★</div><p>"We were losing customers every night. Now NOVA books them while we sleep. Three extra appointments in the first weekend."</p><div class="who"><div class="a">A</div><div><b>Aylin K.</b><span>Aesthetic Clinic · Istanbul</span></div></div></div>
+      <div class="quote reveal"><div class="stars">★★★★★</div><p>"Patients message in five languages. NOVA handles all of it and sends me the serious ones. Game changer for the clinic."</p><div class="who"><div class="a">D</div><div><b>Dr. Mehmet</b><span>Dental Clinic</span></div></div></div>
+      <div class="quote reveal"><div class="stars">★★★★★</div><p>"Setup took an afternoon. It feels like hiring a receptionist for the price of a coffee a day."</p><div class="who"><div class="a">S</div><div><b>Sofia R.</b><span>Real Estate Agent</span></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" style="background:var(--soft)">
+  <div class="wrap" style="max-width:760px">
+    <div class="center"><span class="eyebrow">FAQ</span><h2 style="font-size:2.1rem">Questions, answered.</h2></div>
+    <div class="faq" style="margin-top:40px">
+      <details open><summary>Do I need a new phone number?</summary><p>No. DeskReply works with the WhatsApp Business number you already use — your customers won't know the difference.</p></details>
+      <details><summary>Will it sound robotic?</summary><p>Not at all. NOVA is trained on your business and replies naturally, warmly, and on-brand — and hands off to you when a human touch is needed.</p></details>
+      <details><summary>What if it can't answer something?</summary><p>It gracefully tells the customer a team member will follow up, and notifies you instantly with the details so you never miss it.</p></details>
+      <details><summary>Which languages does it support?</summary><p>30+. It auto-detects the customer's language and replies in it — ideal for tourist-facing and multilingual markets.</p></details>
+      <details><summary>How long does setup take?</summary><p>Usually under a day. Connect WhatsApp, add your business info, and you're live.</p></details>
+      <details><summary>How do I pay?</summary><p>Card or crypto (USDC). The Complete plan is a one-time $499 setup, then $279/mo — cancel anytime, with a 30-day money-back guarantee. Want to see it first? Try the live demo above.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- CTA + FORM -->
+<section id="start">
+  <div class="wrap">
+    <div class="cta">
+      <h2>Stop missing customers. Start tonight.</h2>
+      <p class="lead">Book your free demo — see NOVA live on your business, and we'll have her answering your WhatsApp within a day. Backed by a 30-day money-back guarantee.</p>
+      <form class="form" id="leadForm">
+        <input name="name" placeholder="Your name" required>
+        <input name="business" placeholder="Business name" required>
+        <input name="contact" placeholder="WhatsApp number or email" required>
+        <button class="btn btn-primary btn-lg" type="submit">Book a free demo →</button>
+        <div class="ok" id="formOk">✅ Thanks! We'll reach out within hours to book your free demo.</div>
+      </form>
+      <p style="position:relative;margin-top:16px;color:#8fa6b2;font-size:.9rem">or <a id="waLink" href="https://wa.me/000000000000?text=Hi%20NOVA%2C%20I%27d%20like%20a%20demo" style="color:var(--green);font-weight:700">chat with NOVA on WhatsApp →</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <a class="logo" href="#"><span class="dot">D</span><span class="lk"><b>DeskReply</b><small>by NOVA</small></span></a>
+      <div class="links">
+        <a href="#features">Features</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a>
+        <a href="#start">Book a free demo</a>
+      </div>
+    </div>
+    <small>© 2026 DeskReply by NOVA — AI WhatsApp assistants for any business. · hello@deskreply.com</small>
+  </div>
+</footer>
+
+<!-- floating WhatsApp → NOVA -->
+<a class="wa-fab" id="waFab" href="#start" aria-label="Chat with NOVA on WhatsApp">
+  <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3C9.4 3 4 8.4 4 15c0 2.1.6 4.1 1.6 5.9L4 29l8.3-1.6c1.7.9 3.6 1.4 5.7 1.4 6.6 0 12-5.4 12-12S22.6 3 16 3zm0 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-4.9 1 1-4.8-.3-.4C5.5 18.7 5 16.9 5 15 5 8.9 9.9 4 16 4s11 4.9 11 11-4.9 9.8-11 9.8zm5.7-7.4c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-1.8-.9-3-1.6-4.2-3.6-.3-.5.3-.5.9-1.6.1-.2 0-.4 0-.6s-.7-1.7-1-2.3c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.1 4.5 1.9.8 2.6.9 3.5.8.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.3-.6-.4z" fill="#fff"/></svg>
+</a>
+<!-- sticky CTA bar -->
+<div class="sticky-cta" id="stickyCta">
+  <b>Every slow reply is a high-value client lost.</b>
+  <a class="btn btn-primary" href="#start" style="padding:11px 22px">Book a free demo</a>
+  <button class="x" id="stickyX" aria-label="close">&times;</button>
+</div>
+<!-- exit-intent modal -->
+<div class="modal" id="exitModal">
+  <div class="modal-box">
+    <button class="x" id="exitX" aria-label="close">&times;</button>
+    <h3>Before you go 👋</h3>
+    <p>Let us show you NOVA answering <b>your</b> customers in a quick demo — we'll set up a working assistant for your business, risk-free.</p>
+    <a class="btn btn-primary btn-lg" href="#start" id="exitGo">Book my free demo →</a>
+    <div class="guarantee">✓ 30-day money-back guarantee</div>
+  </div>
+</div>
+
+<script>
+/* ---------- hero auto-playing chat ---------- */
+const heroScript = [
+  {s:'them', t:'Hi, do you offer teeth whitening? 🦷'},
+  {s:'me',   t:'Hello! Yes — professional whitening, visibly brighter after one session. Would you like to book a consultation?'},
+  {s:'them', t:'Yes please, sometime this week'},
+  {s:'me',   t:'Of course — we have Thursday 14:00 or Friday 11:00 with our dentist. Which suits you better?'},
+  {s:'them', t:'Thursday works'},
+  {s:'me',   t:'Booked for Thursday 14:00 ✅ May I take your name, and I\'ll send a confirmation here?'},
+  {s:'them', t:'Elif'},
+  {s:'me',   t:'Thank you, Elif — confirmed for Thursday at 14:00. We\'ll send a reminder the day before. See you then! 😊'},
+];
+function bubble(el,s,t){const b=document.createElement('div');b.className='bub '+s;const time=new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});b.innerHTML=t+'<span class="t">'+time+'</span>';el.appendChild(b);el.scrollTop=el.scrollHeight;}
+function typing(el){const d=document.createElement('div');d.className='typing';d.innerHTML='<i></i><i></i><i></i>';el.appendChild(d);el.scrollTop=el.scrollHeight;return d;}
+async function playHero(){
+  const el=document.getElementById('heroChat');el.innerHTML='';
+  for(const m of heroScript){
+    if(m.s==='me'){const tp=typing(el);await wait(900);tp.remove();}
+    else{await wait(600);}
+    bubble(el,m.s,m.t);
+    await wait(m.s==='me'?1300:700);
+  }
+  await wait(3500);playHero();
+}
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+
+/* ---------- interactive multi-business demo ---------- */
+const demoEl=document.getElementById('demoChat');
+const demoBizName=document.getElementById('demoBiz');
+const SHARED=[
+  [/(are you (a |an )?(bot|robot|ai|real|human|person)|is this (a |an )?(bot|human|person|machine)|am i (talking|speaking|chatting) (to|with))/, "Good question — I'm NOVA, the AI assistant here, available 24/7 to help you and bring in the team whenever it's needed. How can I help?"],
+  [/^(hi|hey|hello|hallo|yo|merhaba|selam|good (morning|afternoon|evening))\b/, "Hello, and welcome! 😊 How can I help you today?"],
+  [/(thank|thanks|thx|teşekkür|cheers|appreciate)/, "You're very welcome! 🙏 Is there anything else I can help you with?"],
+  [/(bye|goodbye|see you|that'?s all|nothing else|no thanks)/, "Thank you for reaching out — have a wonderful day. We're here 24/7 whenever you need us. 👋"],
+  [/(language|languages|türkçe|english|arabic|spanish|deutsch|fran[çc]ais|do you speak)/, "Of course — I speak 30+ languages and reply in whichever you write in. Please feel free to continue in your own language. 🌍"],
+];
+const BIZ={
+  dental:{name:"Dental Clinic", greeting:"Hello, and welcome to the clinic 🦷 — I can help with treatments, pricing, insurance, or booking an appointment. How can I help you today?",
+    intents:[
+      [/(book|appointment|schedule|reserve|see the dentist|come in|available|slot)/, "Of course. Which treatment is it for, and do you prefer a weekday or the weekend? I'll find you the earliest slot."],
+      [/(whiten|whitening)/, "Our professional whitening brightens several shades in a single session, from $250. Would you like to book a consultation?"],
+      [/(implant)/, "Dental implants start at $900 per tooth and include the consultation and a 3D scan. Shall I book you an assessment?"],
+      [/(veneer)/, "Veneers start at $300 each, and we show you a smile-design preview before any treatment. Would you like a consultation?"],
+      [/(brace|invisalign|orthodon|align|straighten)/, "Yes — we offer braces and clear aligners (Invisalign), with a 3D preview at your consultation. Shall I book you in?"],
+      [/(clean|hygien|scal|check ?-?up)/, "A scale & polish check-up is $80 and takes about 30 minutes. When would suit you to come in?"],
+      [/(root canal|filling|cavity|extract|wisdom|tooth ?ache)/, "We can take care of that. Our dentist will confirm the exact treatment and price at a quick assessment — shall I book you in?"],
+      [/(price|cost|how much|fee|expensive|afford)/, "It depends on the treatment — for example check-up $80, whitening from $250, implants from $900. Tell me what you need and I'll give you the figure, or book a consultation for an exact quote."],
+      [/(pain|emergency|urgent|broke|broken|bleed|swollen|hurts?)/, "I'm sorry you're in pain — we keep emergency slots open every day. Can you come in today? I'll flag this as urgent for our dentist right away."],
+      [/(insurance|cover|covered|sigorta|payment plan|install?ment|finance)/, "We work with most major insurers and also offer interest-free payment plans. Bring your details and we'll handle the paperwork. Would you like to book?"],
+      [/(nervous|scared|afraid|anxious|anxiety|phobia)/, "That's completely normal — our team is known for being gentle with anxious patients, and we go at your pace. Shall I book you a relaxed first visit?"],
+      [/(open|hour|close|when|today|weekend|sunday|saturday)/, "We're open Mon–Fri 09:00–18:00 and Saturday 09:00–14:00. Would you like to book an appointment?"],
+      [/(address|where|location|map|park|direction)/, "We're in the city centre with parking right outside — I can send you a map pin here. Would you like it?"],
+      [/(kid|child|children|family|daughter|\bson\b)/, "Yes, we warmly welcome children and families. Would you like to book a family appointment?"],
+    ]},
+  aesthetics:{name:"Aesthetic Clinic", greeting:"Welcome 💎 — I can help with our treatments (Botox, fillers, laser, skin), pricing, or booking a complimentary consultation. What are you interested in?",
+    intents:[
+      [/(botox|wrinkle|forehead|frown|anti.?ag)/, "Botox starts at $200 per area, with natural results in 3–5 days that last 3–4 months. Would you like a consultation to plan it?"],
+      [/(filler|lip|cheek|volume|jaw)/, "Dermal fillers start at $350 with immediate results, tailored to the look you want. Shall I book you a consultation?"],
+      [/(laser|hair removal|ipl)/, "Laser hair removal is from $90 per session, with packages saving up to 30%. Would you like to book a patch test and consultation?"],
+      [/(skin|facial|acne|peel|pigment|glow|hydra|microneedl|prp|mesotherapy|thread)/, "We offer medical facials, peels, microneedling and skin programmes from $120. A consultation lets us assess your skin and plan real results — shall I book you in?"],
+      [/(book|appointment|consult|schedule|reserve|come in|available)/, "Wonderful — consultations are complimentary. Which treatment is it for, and a day that suits you?"],
+      [/(price|cost|how much|fee)/, "It varies by treatment — e.g. Botox from $200, fillers from $350, laser from $90. Tell me what you're after and I'll give the price, or book a free consultation."],
+      [/(result|before|after|work|effective|last|natural)/, "Results are natural and treatment-specific — our specialist will show you before-and-afters and set clear expectations at your consultation. Shall I book it?"],
+      [/(safe|pain|hurt|side ?effect|downtime|recover|risk)/, "Every treatment is performed by qualified medical professionals with minimal downtime. We'll go through it all at your consultation — would you like to book?"],
+      [/(open|hour|close|when|weekend)/, "We're open Tue–Sat 10:00–19:00. Would you like to book a consultation?"],
+      [/(address|where|location|map|park)/, "We're centrally located with valet parking — I can send a map pin. Want it?"],
+    ]},
+  realestate:{name:"Real Estate", greeting:"Hello 👋 — are you looking to buy, rent, or sell? I can share listings, arrange a viewing, or answer any questions.",
+    intents:[
+      [/(buy|purchase|for sale|looking to buy)/, "Great — what area and budget are you considering, and how many bedrooms? I'll pull up matching properties right away."],
+      [/(rent|rental|to let|lease)/, "Happy to help — which area, budget per month, and move-in date? I'll send available rentals that fit."],
+      [/(sell|selling|valuation|value|worth|list my)/, "We'd be glad to value your property — it's free and takes about 20 minutes. What's the address and property type? I'll arrange it."],
+      [/(view|viewing|visit|tour|see the|appointment|book)/, "Of course — which property, and what day/time works? I'll confirm the viewing with the agent."],
+      [/(price|cost|budget|how much|afford|deposit)/, "Tell me your budget and what you're after, and I'll send options that fit. For rentals we typically ask one month's deposit — happy to explain."],
+      [/(area|location|where|neighbou?rhood|district|near)/, "Which areas are you considering? I can tell you what's available and the typical prices in each."],
+      [/(mortgage|finance|loan|install?ment)/, "We work with mortgage advisors who'll check your options for free. Would you like me to connect you?"],
+      [/(available|listing|property|apartment|house|flat|villa|studio)/, "We get new listings daily. Buy or rent, which area, and your budget? I'll send the best matches."],
+      [/(agent|call|speak|contact|human)/, "Absolutely — I can have one of our agents call you. What's the best number and time, and what are you looking for?"],
+    ]},
+  law:{name:"Law Firm", greeting:"Hello, and thank you for contacting the firm ⚖️ — I can help with our practice areas, booking a consultation, or general questions. What is your matter regarding?",
+    intents:[
+      [/(divorce|family|custody|child support|alimony|prenup)/, "We handle family and divorce matters with discretion and care. The first step is a confidential consultation — would you like to book one?"],
+      [/(injury|accident|compensation|claim|negligence|whiplash)/, "We handle personal injury and compensation claims, often on a no-win-no-fee basis. Shall I book a free initial consultation to assess your case?"],
+      [/(business|contract|company|commercial|employment|dispute|partnership)/, "We advise on contracts, business and employment matters. A consultation lets us understand your situation — would you like to schedule one?"],
+      [/(criminal|charge|police|arrest|defen[sc]e|bail)/, "We can help, and these matters are time-sensitive and fully confidential. I can arrange an urgent consultation with one of our solicitors — shall I?"],
+      [/(immigration|visa|residency|citizenship|deport|asylum)/, "We assist with visas, residency and immigration cases. Would you like to book a consultation to review your options?"],
+      [/(will|probate|estate|inheritance|power of attorney)/, "Yes — we handle wills, probate and estate planning. A short consultation lets us get it exactly right. Would you like to book one?"],
+      [/(consult|appointment|book|meet|schedule|lawyer|solicitor|attorney)/, "Of course. What is the matter regarding, and a day/time that suits you? I'll arrange a consultation with the right solicitor."],
+      [/(fee|cost|price|how much|charge|retainer|free|afford)/, "Fees depend on the matter — many begin with a free or fixed-fee initial consultation, and we're always transparent about costs upfront. Shall I book yours?"],
+      [/(confidential|private|discreet|secret)/, "Absolutely — everything you share is strictly confidential and protected by privilege. Please feel free to tell me how we can help."],
+      [/(urgent|emergency|deadline|court date|today|asap)/, "Understood — this sounds time-sensitive. I'll arrange the earliest possible consultation with a solicitor. What's the matter, and your best contact number?"],
+      [/(address|where|location|office)/, "Our offices are in the city centre — I can send the address and a map pin. Would you like it?"],
+    ]},
+  medtourism:{name:"Medical Travel", greeting:"Hello! ✈️ We arrange world-class treatment abroad with all-inclusive packages. I can help with procedures, a free personalised quote, or a video consultation. What are you considering?",
+    intents:[
+      [/(hair|transplant|fue|dhi|bald|hairline)/, "Hair transplants (FUE/DHI) are one of our most popular treatments, with all-inclusive packages covering the clinic, hotel and transfers. Share a photo and our specialist will prepare a personalised quote — shall I arrange it?"],
+      [/(dental|teeth|veneer|implant|smile|crown|hollywood)/, "We arrange full dental work — veneers, crowns, implants, smile makeovers — with accredited clinics and all-inclusive packages. May I take a couple of details for a personalised quote?"],
+      [/(nose|rhino|bbl|lipo|breast|tummy|facelift|cosmetic|plastic|surgery)/, "We coordinate cosmetic and plastic surgery with experienced surgeons and full aftercare. The first step is a free video consultation — would you like me to arrange one?"],
+      [/(ivf|fertility|egg|sperm|surrogacy|eye|lasik|bariatric|weight ?loss|gastric|check.?up)/, "Yes — alongside hair, dental and cosmetic work we also arrange IVF/fertility, eye (LASIK) and weight-loss procedures, all with all-inclusive packages. Which are you considering? I'll set up a free quote."],
+      [/(price|cost|how much|quote|package|cheap|afford)/, "Packages are all-inclusive and well below clinic prices back home — the exact figure depends on your case. Tell me the treatment and I'll arrange a free personalised quote. What are you interested in?"],
+      [/(include|included|hotel|transfer|stay|accommodation|airport|translator)/, "Our all-inclusive packages typically cover the treatment, hotel stay, VIP airport & clinic transfers, and a personal translator. Exact inclusions come with your quote — which treatment is it for?"],
+      [/(safe|qualified|accredit|experienc|doctor|surgeon|credential|review|trust)/, "You'll be in expert hands — accredited clinics and experienced, internationally-trained doctors, and we're glad to share reviews and before-and-afters. Shall I arrange your free consultation?"],
+      [/(consult|video|call|book|appointment|talk|speak)/, "Wonderful — the first step is a free video consultation with the medical team, often available the same day. What treatment is it for, and your country and a good time?"],
+      [/(travel|flight|fly|trip|how long|days|stay|recover)/, "Most patients stay only a few days and we plan the whole trip around you. Once we know the treatment, we'll map out the timeline — which procedure are you considering?"],
+      [/(book|yes|interested|sign me|let'?s|ready)/, "Brilliant! To get started, may I take your name, the treatment you're interested in, and your country? Our coordinator will follow up with your free quote and next steps."],
+    ]},
+};
+let curBiz="dental";
+function reply(q){
+  q=q.toLowerCase();
+  for(const pair of BIZ[curBiz].intents){ if(pair[0].test(q)) return pair[1]; }
+  for(const pair of SHARED){ if(pair[0].test(q)) return pair[1]; }
+  return "Of course — I can help with that. Would you like me to book you in, or shall I share more on our services, pricing, or hours? Whatever's easiest for you. 😊";
+}
+const demoAva=document.getElementById('demoAva');
+function loadBiz(key){
+  curBiz=key; demoEl.innerHTML=""; demoBizName.textContent=BIZ[key].name;
+  if(demoAva) demoAva.textContent=BIZ[key].name.charAt(0);
+  document.querySelectorAll('.chip').forEach(c=>c.classList.toggle('on', c.dataset.k===key));
+  bubble(demoEl,'me',BIZ[key].greeting);
+}
+async function sendDemo(){
+  const inp=document.getElementById('demoInput');const q=inp.value.trim();if(!q)return;
+  inp.value='';bubble(demoEl,'them',q);
+  const tp=typing(demoEl);await wait(1000);tp.remove();
+  bubble(demoEl,'me',reply(q));
+}
+document.querySelectorAll('.chip').forEach(c=>c.onclick=()=>loadBiz(c.dataset.k));
+document.getElementById('demoSend').onclick=sendDemo;
+document.getElementById('demoInput').addEventListener('keydown',e=>{if(e.key==='Enter')sendDemo();});
+loadBiz("dental");
+
+/* WhatsApp → NOVA (single source of truth for the number) */
+const WA_NUMBER="000000000000"; // TODO: set NOVA's WhatsApp number, digits only incl. country code (e.g. 905XXXXXXXXX)
+const WA_READY=/^\d{8,15}$/.test(WA_NUMBER) && WA_NUMBER!=="000000000000";
+const WA_LINK=WA_READY ? "https://wa.me/"+WA_NUMBER+"?text="+encodeURIComponent("Hi NOVA, I'd like a demo for my business") : "#start";
+const waFab=document.getElementById('waFab'), waLink=document.getElementById('waLink');
+[waFab,waLink].forEach(el=>{ if(!el) return; el.href=WA_LINK; if(WA_READY){el.target="_blank";el.rel="noopener";} });
+
+/* sticky CTA bar */
+const sticky=document.getElementById('stickyCta');let stickyOff=false;
+window.addEventListener('scroll',()=>{
+  const past=window.scrollY>720;
+  if(!stickyOff) sticky.classList.toggle('show', past);
+  if(waFab) waFab.classList.toggle('up', past && !stickyOff);
+});
+function killSticky(){sticky.classList.remove('show');stickyOff=true;if(waFab)waFab.classList.remove('up');}
+document.getElementById('stickyX').onclick=killSticky;
+sticky.querySelector('a').addEventListener('click',killSticky);
+
+/* exit-intent modal (once per session, desktop) */
+const modal=document.getElementById('exitModal');
+const closeModal=()=>modal.classList.remove('show');
+document.getElementById('exitX').onclick=closeModal;
+document.getElementById('exitGo').onclick=closeModal;
+modal.addEventListener('click',e=>{if(e.target===modal)closeModal();});
+document.addEventListener('mouseout',e=>{
+  if(e.clientY<=0 && !e.relatedTarget && !sessionStorage.getItem('exitShown')){
+    modal.classList.add('show'); sessionStorage.setItem('exitShown','1');
+  }
+});
+
+/* ---------- reveal on scroll ---------- */
+const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ---------- nav + form ---------- */
+document.getElementById('menuBtn').onclick=()=>document.getElementById('navlinks').classList.toggle('open');
+document.querySelectorAll('#navlinks a').forEach(a=>a.onclick=()=>document.getElementById('navlinks').classList.remove('open'));
+document.getElementById('leadForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  /* TODO: wire to Formspree (formspree.io) or your email/CRM to actually receive leads */
+  e.target.querySelectorAll('input,button[type=submit]').forEach(n=>n.style.display='none');
+  document.getElementById('formOk').style.display='block';
+});
+
+playHero();
+</script>
+</body>
+</html>
